@@ -1,22 +1,38 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Nov  3 11:03:43 2017
+
+@author: diegollarrull
+"""
+
 #!/bin/bash
-from __future__ import division  # Python 2 users only
+#from __future__ import division  # Python 2 users only
 
 __doc__= """ Script for implementation of approximated tSNE algorithm.
 See "Approximated and User Steerable tSNE for Progressive Visual Analytics" """
 
 from pyflann import FLANN
 import numpy as np
+import scipy.sparse as sp
 
-from sklearn.preprocessing import normalize
-from sklearn.manifold import TSNE, 
+from sklearn.decomposition import PCA
+from sklearn.metrics.pairwise import pairwise_distances
+from sklearn.manifold import TSNE
+from sklearn.manifold.t_sne import _joint_probabilities_nn, _joint_probabilities
+from sklearn.neighbors import BallTree
+from sklearn.utils import check_array, check_random_state
 
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
 
+string_types = "str"
+
 def auto_params(dataset, target_precision):
-    flann = flann.FLANN()
+    flann = FLANN()
     params = flann.build_index(dataset, algorithm="autotuned", target_precision=0.9);
+    return params
     
 
 class TSNE_mod(TSNE):
